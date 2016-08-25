@@ -1,0 +1,1 @@
+$.addScript('https://canvasassets.wsd.net/development/build/canvas.min.js');

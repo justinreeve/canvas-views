@@ -1,0 +1,9 @@
+This is a framework for modifying the functionality and style of Canvas.
+
+Canvas loads canvas-production.min.js via $.addScript().
+
+Canvas loads canvas-production.css via @import call.
+
+JSRender is used as the templating system, and loaded via grunt-js-render.
+
+TODO: When development is stable, upload canvas-production.min.js and canvas-production.css directly to Canvas, so they can be cached locally and not retrieved from https://canvasassets.wsd.net.
