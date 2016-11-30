@@ -1,11 +1,12 @@
 var loginForm = $('form#login_form'),
-	studentLogin = $('span.ic-Login_sso-button_title--google'),
+//	studentLogin = $('span.ic-Login_sso-button_title--google'),
+	studentLogin = $('a.ic-Login__sso-button--google'),
 	parentLogin = $('button.Button--primary.Button--login'),
-	studentSectionHeader = '<h2>Students!</h2>',
-	parentSectionHeader = '<h2>Parents!</h2>',
+	studentSectionHeader = '<h2>Students</h2>',
+	parentSectionHeader = '<h2>Parents</h2>',
 	horizontalRule = '<hr />';
 
-studentLogin.text('Log in as a Student');
+studentLogin.text('Log in as a Student or Teacher');
 studentLogin.parent().css('background-color', '#0096db');
 parentLogin.text('Log in as a Parent');
 

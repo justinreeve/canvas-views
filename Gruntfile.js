@@ -6,14 +6,30 @@ module.exports = function(grunt) {
     js_render: {
     	options: {},
     	files: {
-    		'templates.js': ['views/**.html'],
+    		'build/templates.js': ['views/**.html'],
     	},
     },
     uglify: {
+   	  options: {
+   	  	mangle: true,
+   	  },
       build: {
-        src: 'js/*.js',
-        dest: 'build/canvas.min.js',
+        files: {
+        	'build/canvas.min.js': ['js/*.js',
+					'js/variables/*.js',
+					'vendor/*.js'],
+        },
       },
+    },
+    less: {
+    	production: {
+    		options: {
+    			paths: ['build'],
+    		},
+    		files: {
+    			'build/canvas.css': 'less/*.less',
+    		},
+    	},
     },
     watch: {
     	js: {
@@ -25,7 +41,7 @@ module.exports = function(grunt) {
     	},
     	less: {
     		files: ['less/*.less'],
-    		tasks: [''],
+    		tasks: ['less'],
     		options: {
     			spawn: false,
     		},
@@ -36,8 +52,9 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-js-render');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['uglify', 'less']);
 };

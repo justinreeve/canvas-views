@@ -2,8 +2,24 @@ This is a framework for modifying the functionality and style of Canvas.
 
 Canvas loads canvas-production.min.js via $.addScript().
 
-Canvas loads canvas-production.css via @import call.
+Canvas loads canvas-production.css via @import call. Also see https://canvas.instructure.com/styleguide
 
 JSRender is used as the templating system, and loaded via grunt-js-render.
 
+See KennethWare: https://community.canvaslms.com/groups/admins/blog/2016/04/21/what-do-i-need-to-do-to-setup-kennethware-20-for-my-canvas-instance
+
 TODO: When development is stable, upload canvas-production.min.js and canvas-production.css directly to Canvas, so they can be cached locally and not retrieved from https://canvasassets.wsd.net.
+
+https://github.com/sfu/canvas-lms/blob/sfu-develop/public/sfu/js/sfu.js
+See functions like onPage() for telling the script to check the page before adding page-specific content.
+
+console.log(ENV);
+
+See https://www.html5rocks.com/en/tutorials/webcomponents/customelements/
+Create a framework that allows markup like this:
+<loginForm>
+	<studentLoginContainer>
+		<studentLoginForm buttonText="Log in as a Student or Teacher">
+		</studentLoginForm>
+	</studentLoginContainer>
+</loginForm>
