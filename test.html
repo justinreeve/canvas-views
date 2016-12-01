@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="vendor/xml2json.js"></script>
+        <script>
+        $.ajax({
+            url: 'https://canvasassets.wsd.net/development/views/login.html',
+            method: 'GET',
+        }).done(function(data)
+        {
+            var x2js = new X2JS();
+            console.log(window.X2JS);
+        });
+            var template = ' \
+<form-login> \
+    <h2>Students</h2> \
+    <student-login-container> \
+        <student-login-button>Log in as a Student or Teacher</student-login-button> \
+    </student-login-container> \
+\
+    <h2>Parents</h2> \
+    <parent-login-container> \
+        <parent-login-input-email /> \
+        <parent-login-input-password /> \
+        <parent-login-button>Log in as a Parent</parent-login-button> \
+    </parent-login-container> \
+</form-login>';
+
+            var x2js = new X2JS();
+            var json = x2js.xml_str2json(template);
+            console.log(json);
+        </script>
+    </head>
+</html>

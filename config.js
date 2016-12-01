@@ -1,4 +1,4 @@
-var config = {
+var CVConfig = {
 	"host": "https://canvasassets.wsd.net/development/",
     "pages": [{
         "name": "login",

@@ -15,11 +15,13 @@ module.exports = function(grunt) {
    	  },
       build: {
         files: {
-        	'build/canvas.min.js': ['config.js',
+        	'build/canvas.min.js': [
+		        	'vendor/*.js',
+        			'config.js',
 					'framework/*',
 					'js/**/*.js',
 					'js/variables/*.js',
-					'vendor/*.js'],
+					],
         },
       },
     },

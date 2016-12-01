@@ -1,6 +1,6 @@
 function getTemplateNameForPath(path)
 {
-	var arr = config.pages;
+	var arr = CVConfig.pages;
 	for (var i = 0; i < arr.length; i++)
 	{
 		if (arr[i].hasOwnProperty('path'))
@@ -14,7 +14,7 @@ function getTemplateNameForPath(path)
 	return null;
 }
 
-$(document).ready(function()
+$(function()
 {
 	var htmlContainer = $('html'),
 		currentTemplate;
@@ -25,16 +25,22 @@ $(document).ready(function()
 	{
 		htmlContainer.addClass('loading');
 
+		// Load dependencies before everything else.
 		// Load the template.
 		$.ajax({
-			url: config.host + 'views/' + currentTemplate + '.html',
+			url: CVConfig.host + 'views/' + currentTemplate + '.html',
 			method: 'GET',
+			cache: false,
 		}).done(function(data)
 		{
 			registerElementsForTemplate(currentTemplate, data);
+			htmlContainer.removeClass('loading');
+		}).fail(function()
+		{
+			htmlContainer.removeClass('loading');
 		});
+
 	}
 
-	$('html').removeClass('loading');
 //	alert('test');
 });
