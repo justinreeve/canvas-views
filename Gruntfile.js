@@ -15,7 +15,9 @@ module.exports = function(grunt) {
    	  },
       build: {
         files: {
-        	'build/canvas.min.js': ['js/*.js',
+        	'build/canvas.min.js': ['config.js',
+					'framework/*',
+					'js/**/*.js',
 					'js/variables/*.js',
 					'vendor/*.js'],
         },
@@ -33,7 +35,7 @@ module.exports = function(grunt) {
     },
     watch: {
     	js: {
-    		files: ['js/*.js'],
+    		files: ['config.js', 'framework/*.js', 'js/**/*.js', 'vendor/*.js'],
     		tasks: ['uglify'],
     		options: {
     			spawn: false,

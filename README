@@ -17,6 +17,7 @@ console.log(ENV);
 
 See https://www.html5rocks.com/en/tutorials/webcomponents/customelements/
 Create a framework that allows markup like this:
+
 <loginForm>
 	<studentLoginContainer>
 		<studentLoginForm buttonText="Log in as a Student or Teacher">
