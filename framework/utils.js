@@ -4,6 +4,11 @@ var CanvasViewUtils = {
 		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 	},
 
+	hyphenToCamelcase : function(str)
+	{
+		return str.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
+	},
+
 	inArrayOfObjects : function(key, value, arr)
 	{
 		for (var i = 0; i < arr.length; i++)
