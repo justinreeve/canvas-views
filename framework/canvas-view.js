@@ -39,7 +39,6 @@ $(function()
 		{
 			htmlContainer.removeClass('loading');
 		});
-
 	}
 
 //	alert('test');

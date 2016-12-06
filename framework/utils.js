@@ -9,6 +9,11 @@ var CanvasViewUtils = {
 		return str.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
 	},
 
+	camelcaseToHyphen : function(str)
+	{
+		return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+	},
+
 	inArrayOfObjects : function(key, value, arr)
 	{
 		for (var i = 0; i < arr.length; i++)
