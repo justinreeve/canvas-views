@@ -1,15 +1,18 @@
-/*
 var loginForm = $('form#login_form'),
 //	studentLogin = $('span.ic-Login_sso-button_title--google'),
 	studentLogin = $('a.ic-Login__sso-button--google'),
 	parentLogin = $('button.Button--primary.Button--login'),
 	studentSectionHeader = '<h2>Students</h2>',
 	parentSectionHeader = '<h2>Parents</h2>',
-	horizontalRule = '<hr />';
+	horizontalRule = '<hr />',
+	hasStudentLogin = false;
 
-if (!studentLogin)
+if (studentLogin.length > 0)
+	hasStudentLogin = true;
+
+if (hasStudentLogin == false)
 {
-	studentLogin = $('<a href="/login/google" class="Button Button--primary Button--login">Log in as a Student or Teacher</a>');
+	studentLogin = $('<br /><a href="/login/google" class="Button Button--primary Button--login btn btn-primary btn-large">Log in as a Student or Teacher</a>');
 }
 else
 {
@@ -22,7 +25,7 @@ loginForm.prepend(horizontalRule);
 loginForm.prepend(parentSectionHeader);
 loginForm.prepend('<br /><br /><br />');
 
-if (!studentLogin)
+if (hasStudentLogin == false)
 {
 	studentLogin.prependTo(loginForm);
 }
@@ -33,4 +36,3 @@ else
 
 loginForm.prepend(horizontalRule);
 loginForm.prepend(studentSectionHeader);
-*/

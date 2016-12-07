@@ -16,11 +16,7 @@ module.exports = function(grunt) {
       build: {
         files: {
         	'build/canvas.min.js': [
-		        	'vendor/*.js',
-        			'config.js',
-					'framework/*',
-					'js/**/*.js',
-					'js/variables/*.js',
+					'js/login.js',
 					],
         },
       },
