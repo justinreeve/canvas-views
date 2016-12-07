@@ -50,12 +50,16 @@ function getChildren(templateObjName, xml, currentIndex, rootObj)
 					// We're working with a jQuery element now that we've defined in js/variables.
 					// Append the element to the parent.
 					jqElement = window.CV[templateObjName][elementVarName];
-					jqElement = $(jqElement.selector);
-	
 					console.log(jqElement);
-					jqElement.clone().appendTo(rootObj);
+//					jqElement.appendTo(rootObj);
 				}
 			}
+		}
+
+		// Standard HTML is just appended to the root object.
+		else
+		{
+			rootObj.append(obj[0]);
 		}
 
 //		console.log(elementVarName);
