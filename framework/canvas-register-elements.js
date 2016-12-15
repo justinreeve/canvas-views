@@ -20,6 +20,7 @@ function registerElementsForTemplate(template, xmlString)
 
 	var obj = getChildren(templateObjName, xml, 0);
 	console.log(obj[0].outerHTML);
+	return obj;
 }
 
 function prepareObj(templateObjName)

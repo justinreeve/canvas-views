@@ -20,7 +20,18 @@ var CVConfig = {
 		},
 		{
 			"name": "commons",
-			"title": "Commons",
+			"action": "remove",
+		},
+		{
+			"name": "help",
+			"action": "remove",
+		},
+		{
+			"name": "calendar",
+			"action": "remove",
+		},
+		{
+			"name": "0-inbox",
 			"action": "remove",
 		}],
 		"sectionmenu": [
