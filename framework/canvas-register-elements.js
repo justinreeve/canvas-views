@@ -1,76 +1,95 @@
 function registerElementsForTemplate(template, xmlString)
 {
-	var templateObjName = CanvasViewUtils.titlecase(template);
+	var templateObjName = CanvasViewUtils.titlecase(template),
+		xml,
+		xmlDoc,
+		xmlJSON,
+		rootObj;
+
 	console.log(templateObjName);
-	var xml = $(xmlString);
-	var xmlDoc = $.parseXML(xmlString);
-	var xmlJSON = parseDOMChildren(xmlDoc);
+
+	prepareObj(templateObjName);
+
+	xml = $(xmlString);
+	xmlDoc = $.parseXML(xmlString);
+	xmlJSON = parseDOMChildren(xmlDoc);
 
 //	console.log('template object: %o', CanvasView[templateObj]);
 
 //	console.log(xmlJSON);
 
-	getChildren(templateObjName, xml, 0);
+	var obj = getChildren(templateObjName, xml, 0);
+	console.log(obj[0].outerHTML);
 }
 
-function getChildren(templateObjName, xml, currentIndex, rootObj)
+function prepareObj(templateObjName)
 {
+	if (window.CV[templateObjName])
+	{
+		var obj = window.CV[templateObjName];
+		for (var property in obj)
+		{
+			if (obj.hasOwnProperty(property))
+			{
+//				obj[property].html('');
+			}
+		}
+	}
+}
+
+function getChildren(templateObjName, xml, currentIndex, parentObj)
+{
+	var xmlObj = $(xml[0]),
+		elementVarName,
+		children,
+		jqElement;
+
+	console.log(xmlObj);
+
 	if (typeof currentIndex === 'undefined')
 		currentIndex = 0;
 
-//	console.log(currentIndex);
-//	console.log(xml);
-	xml.each(function(index)
+	// Only tags with a hyphen are custom.
+	if (xmlObj[0].localName.indexOf('-') > -1)
 	{
-		var obj = $(this),
-			elementVarName,
-			children,
-			jqElement;
+		elementVarName = CanvasViewUtils.hyphenToCamelcase(xmlObj[0].localName);
 
-		if (typeof rootObj === 'undefined' && currentIndex == 0)
+		// Check if the element has been defined in js/variables.
+		if (window.CV[templateObjName][elementVarName])
 		{
-			rootObj = obj;
-			rootObj = $('form#login_form');
-			rootObj.html('');
-			console.log('root obj: %o', rootObj);
-		}
+			// We're working with a jQuery element now that we've defined in js/variables.
+			// Append the element to the parent.
+			jqElement = window.CV[templateObjName][elementVarName];
 
-		// Only tags with a hyphen are custom.
-		if (obj[0].localName.indexOf('-') > -1)
+			// Add any text that was included between the tags.
+//			console.log('text content: %o', obj[0].textContent);
+			if (typeof xmlObj[0].textContent !== undefined)
+				if (xmlObj[0].textContent != '')
+					jqElement.text(xmlObj[0].textContent);
+
+//			console.log(jqElement);
+
+//			parentObj.append(jqElement);
+//			jqElement.appendTo(rootObj);
+		}
+	}
+
+	// Standard HTML is just appended to the root object.
+	else
+	{
+//		parentObj.append(obj[0]);
+	}
+
+//	console.log(elementVarName);
+	children = xmlObj.children();
+	if (children.length > 0)
+	{
+		children.each(function()
 		{
-			// The first tag in the template is the "root" object, and we won't need to do anything to it
-			// right now, but the children will append to it. If we're on the root, just skip this part.
-			if (currentIndex > 0)
-			{
-				elementVarName = CanvasViewUtils.hyphenToCamelcase(obj[0].localName);
+			console.log(children.html());
+			return getChildren(templateObjName, children, currentIndex + 1);
+		});
+	}
 
-				// Check if the element has been defined in js/variables.
-				if (window.CV[templateObjName][elementVarName])
-				{
-					// We're working with a jQuery element now that we've defined in js/variables.
-					// Append the element to the parent.
-					jqElement = window.CV[templateObjName][elementVarName];
-					console.log(jqElement);
-//					jqElement.appendTo(rootObj);
-				}
-			}
-		}
-
-		// Standard HTML is just appended to the root object.
-		else
-		{
-			rootObj.append(obj[0]);
-		}
-
-//		console.log(elementVarName);
-
-		children = obj.children();
-		if (children.length > 0)
-		{
-			children.each(function()
-			{
-				getChildren(templateObjName, $(this), currentIndex + 1, rootObj);
-			});
-		}
-	});
+	return xmlObj;
 }
