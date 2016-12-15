@@ -20,14 +20,16 @@ $(function()
 	{
 		var mainMenu = $('.ic-app-header__main-navigation ul#menu'),
 			sectionMenu = $('#left-side ul#section-tabs'),
+			selectedMenu,
+			menuName,
 			items;
 	
 		initMenu(menu);
-	
+
 		function initMenu(menu)
 		{
-			var selectedMenu;
-	
+			menuName = menu;
+
 			if (menu == 'mainmenu')
 				selectedMenu = mainMenu;
 			else if (menu == 'sectionmenu')
@@ -39,17 +41,98 @@ $(function()
 				selectedMenu.find('li').each(function(index)
 				{
 					var name, title, link;
-					console.log($(this).text().trim());
+					title = $(this).text().trim();
+					name = getNameFromTitle(title);
+					link = $(this).find('a').attr('href');
+//					console.log(name);
+//					console.log(title);
+//					console.log(link);
+
+					// Add the attributes to the <li> to make later operations either.
+					$(this).attr('data-name', name);
+					$(this).attr('data-title', title);
 				});
 			}
 		}
-	
-		function addItem(data)
+
+		function getNameFromTitle(title)
 		{
+			return title.replace(/\s+/g, '-').toLowerCase();
 		}
-	
-		function removeItem(title)
+
+		function addItem(menuitem)
 		{
+			var html = '',
+				icon = '';
+
+			if (typeof menuitem !== 'object')
+				return;
+	
+			console.log(menuitem);
+
+			if (typeof menuitem.icon !== 'undefined')
+				icon = menuitem.icon;
+
+			if (menuName == 'mainmenu')
+			{
+				html = '<li class="menu-item ic-app-header__menu-list-item" data-name="' + menuitem.name + '" data-title="' + menuitem.title + '"> \
+							<a class="ic-app-header__menu-list-link" href="#"> \
+								<div class="menu-item-icon-container" aria-hidden="true"> \
+								' + icon + ' \
+								</div> \
+								<div class="menu-item__text"> \
+								' + menuitem.title + ' \
+								</div> \
+							</a> \
+						</li>';
+			}
+			else if (menuName = 'sectionmenu')
+			{
+			}
+
+			selectedMenu.append(html);
+		}
+
+		// This function accepts either the menuitem object defined in config, or the title.
+		function removeItem(menuitem)
+		{
+			var name;
+
+			if (typeof menuitem === 'object')
+				name = menuitem.name;
+			else
+				name = getNameFromTitle(menuitem);
+
+			selectedMenu.find('li[data-name="' + name + '"]').each(function(index)
+			{
+				$(this).remove();
+			});
+		}
+
+		// Public functions
+		this.getMainMenu = function()
+		{
+			return mainMenu;
+		}
+
+		this.getSectionMenu = function()
+		{
+			return sectionMenu;
+		}
+
+		this.getSelectedMenu = function()
+		{
+			return selectedMenu;
+		};
+
+		this.addItem = function(data)
+		{
+			return addItem(data);
+		}
+
+		this.removeItem = function(data)
+		{
+			return removeItem(data);
 		}
 	}
 
@@ -61,8 +144,27 @@ $(function()
 		currentTemplate;
 
 	// Process menus.
-	var menu = new CV.Menu('mainmenu');
-	console.log(menu);
+	if (typeof CVConfig.menus !== 'undefined')
+	{
+		for (var menuname in CVConfig.menus)
+		{
+			var menu = new CV.Menu(menuname);
+
+			for (var i = 0; i < CVConfig.menus[menuname].length; i++)
+			{
+				var menuitem = CVConfig.menus[menuname][i];
+				if (menuitem.action == 'add')
+				{
+					menu.addItem(menuitem);
+				}
+				else if (menuitem.action == 'remove')
+				{
+					menu.removeItem(menuitem);
+				}
+				console.log(menuitem);
+			}
+		}
+	}
 
 	// Check if the current path is in the config.
 	currentTemplate = getTemplateNameForPath(window.location.pathname);
