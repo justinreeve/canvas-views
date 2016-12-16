@@ -22,8 +22,14 @@ CV.Page = function(pageName)
 			cache: false,
 		}).done(function(data)
 		{
-			var obj = registerElementsForTemplate(name, data);
-			CV.Common.content.html(obj[0].outerHTML);
+//			var obj = registerElementsForTemplate(name, data);
+//			CV.Common.content.html(obj[0].outerHTML);
+			var templateObjName = CanvasViewUtils.titlecase(name),
+				templateHtml;
+
+			templateHtml = $('#' + name + '-template').html();
+			console.log(templateHtml);
+
 			htmlContainer.removeClass('loading');
 		}).fail(function()
 		{
