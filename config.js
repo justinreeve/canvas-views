@@ -1,3 +1,5 @@
+"use strict";
+
 console.log(ENV);
 
 var CV = new Object();
