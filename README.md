@@ -1,6 +1,6 @@
 # Canvas Views
 
-This is an experimental framework for modifying the functionality and style of a hosted instance of the Canvas LMS (Instructure), by injecting an MVC-style architecture on top of it. The framework makes creating new pages and modifying existing pages simple. Handlebars allow for easy templating.
+This is an experimental framework for modifying the functionality and style of a hosted instance of the Canvas LMS (Instructure), by injecting an MVC architecture on top of it, independent of the existing frameworks. The Canvas Views framework makes creating new pages and modifying existing pages simple. Handlebars allow for easy templating.
 
 The hosted version of the Canvas LMS allows you to upload one CSS and one JS file that will appear on each page. The loaders handle the loading and processing of all external assets. The JS loads canvas-production.min.js via $.addScript(). The CSS loads canvas-production.css via an @import call.
 

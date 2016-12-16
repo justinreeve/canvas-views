@@ -3,6 +3,7 @@
 console.log(ENV);
 
 var CV = new Object();
+CV.Controller = new Object()
 
 // When we're adding menu items, the "name" needs to match the filename of the view.
 var CVConfig = {
